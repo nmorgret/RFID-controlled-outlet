@@ -10,6 +10,7 @@ support = 1;
 
 tabWidth = min(w, l, h)/4;
 
+
 panelThickness = 0.375*in;
 plasticThickness = panelThickness; //0.25*in;
 screwRadius = 1.5;
@@ -22,20 +23,20 @@ tabulate = false;
 cordInlet = [0.75*in,0.35*in];
 knockout = [0.1*in,0.05*in];// false;
 
-//corner(panelThickness, plasticThickness, channelDepth, h, screwRadius, tabWidth);
+//corner(panelThickness, plasticThickness, channelDepth, h, screwRadius, tabWidth, support);
 
 //translate([-w/2,-l/2])trimedFootprint(panelThickness, plasticThickness, channelDepth, false, true);
 
-//3D(w,l,h,panelThickness,plasticThickness,tabWidth,screwRadius,channelDepth,separation,lockRadius,hinge,longHinge,tabulate,cordInlet,knockout);
+//3D(w,l,h,panelThickness,plasticThickness,channelDepth,tabWidth,screwRadius,channelDepth,separation,lockRadius,hinge,longHinge,tabulate,cordInlet,knockout,support);
 
-2D(w,l,h,panelThickness,plasticThickness,tabWidth,screwRadius,separation,lockRadius,hinge,longHinge,tabulate,cordInlet,knockout);
+2D(w,l,h,panelThickness,plasticThickness,channelDepth,tabWidth,screwRadius,separation,lockRadius,hinge,longHinge,tabulate,cordInlet,knockout);
 
 /**************************************
 * Modules for assembly
 **************************************/
 
-module 3D(w,l,h,panelT,plasticT,tabW,screwR,depth,
-        t=1,lock=false,hinge=false,longHinge=false,tabulate=false,inlet=false,KO=false) {
+module 3D(w,l,h,panelT,plasticT,channelD,tabW,screwR,depth,
+        t=1,lock=false,hinge=false,longHinge=false,tabulate=false,inlet=false,KO=false,support=0) {
     
     linear_extrude(panelT)bottom(w,l,panelT,plasticT,tabW);
     
@@ -50,19 +51,19 @@ module 3D(w,l,h,panelT,plasticT,tabW,screwR,depth,
         end(w,h,panelT,plasticT,tabW,hinge||longHinge);
     
     translate([0,0,h+panelT+t*2])linear_extrude(panelT)
-        top(w,l,panelT,plasticT,tabW,screwR,hinge,longHinge,tabulate);
+        top(w,l,panelT,plasticT,channelD,tabW,screwR,hinge,longHinge,tabulate);
     
     translate([-t*2-(w/2+panelT),-t*2-(l/2+panelT),-plasticT])rotate(  0)
-        corner(panelT,plasticT,depth,h,screwR,tabW);
+        corner(panelT,plasticT,depth,h,screwR,tabW,support);
     translate([ t*2+(w/2+panelT),-t*2-(l/2+panelT),-plasticT])rotate( 90)
-        corner(panelT,plasticT,depth,h,screwR,tabW);
+        corner(panelT,plasticT,depth,h,screwR,tabW,support);
     translate([-t*2-(w/2+panelT), t*2+(l/2+panelT),-plasticT])rotate(-90)
-        corner(panelT,plasticT,depth,h,screwR,tabW);
+        corner(panelT,plasticT,depth,h,screwR,tabW,support);
     translate([ t*2+(w/2+panelT), t*2+(l/2+panelT),-plasticT])rotate(180)
-        corner(panelT,plasticT,depth,h,screwR,tabW);
+        corner(panelT,plasticT,depth,h,screwR,tabW,support);
 }
 
-module 2D(w,l,h,panelT,plasticT,tabW,
+module 2D(w,l,h,panelT,plasticT,channelD,tabW,
         screwR=false,t=1,lock=false,hinge=false,longHinge=false,
         tabulate=false,inlet=false,KO=false) {
         
@@ -79,7 +80,7 @@ module 2D(w,l,h,panelT,plasticT,tabW,
         end (w, h, panelT, plasticT, tabW, hinge||longHinge);
         
     translate([(w/2+panelT+plasticT)*2+t*2+(h+panelT)+((tabulate)?panelT:0),0])
-        top(w, l, panelT, plasticT, tabW, screwR, hinge, longHinge, tabulate);
+        top(w, l, panelT, plasticT, channelD, tabW, screwR, hinge, longHinge, tabulate);
 }
 
 
@@ -87,20 +88,20 @@ module 2D(w,l,h,panelT,plasticT,tabW,
 * Modules for 2D panels
 **************************************/
 
-module top(w, l, panelT, plasticT, tabW, screwR = false, hinge = false, longHinge = false, tabulate = false) {
+module top(w, l, panelT, plasticT, channelD, tabW, screwR = false, hinge = false, longHinge = false, tabulate = false) {
     difference() {
         union() {
             //square([w+panelT*2,l+panelT*2], true);
             square([w+panelT*2+plasticT*2,l], true);
             square([w,l+plasticT*2+panelT*2], true);
             translate([-(w/2+panelT),-(l/2+panelT)])rotate(  0)
-                trimedFootprint(panelT, plasticT, channelDepth, screwR);
+                trimedFootprint(panelT, plasticT, channelD, screwR);
             translate([ (w/2+panelT),-(l/2+panelT)])rotate( 90)
-                trimedFootprint(panelT, plasticT, channelDepth, screwR);
+                trimedFootprint(panelT, plasticT, channelD, screwR);
             translate([-(w/2+panelT), (l/2+panelT)])rotate(-90)
-                trimedFootprint(panelT, plasticT, channelDepth, screwR);
+                trimedFootprint(panelT, plasticT, channelD, screwR);
             translate([ (w/2+panelT), (l/2+panelT)])rotate(180)
-                trimedFootprint(panelT, plasticT, channelDepth, screwR);
+                trimedFootprint(panelT, plasticT, channelD, screwR);
         }
         translate([0, (l+panelT)/2])tabs(w-2*panelT, panelT, tabW);
         translate([0,-(l+panelT)/2])tabs(w-2*panelT, panelT, tabW);
@@ -157,8 +158,8 @@ module bottom(w, l, panelT, plasticT, tabW) {
     difference() {
         union() {
             square([w+panelT*2,l+panelT*2], true);
-            square([w+panelT*2+plasticT*2,l], true);
-            square([w,l+plasticT*2+panelT*2], true);
+            square([w+panelT*2+plasticT*2,l-plasticT*2], true);
+            square([w-plasticT*2,l+plasticT*2+panelT*2], true);
         }
         translate([0, (l+panelT)/2])tabs(w-2*panelT, panelT, tabW);
         translate([0,-(l+panelT)/2])tabs(w-2*panelT, panelT, tabW);
@@ -209,7 +210,7 @@ module singleInlet(size, r) {
 * Modules for the 3D corner
 **************************************/
 
-module corner(panelT, plasticT, channelD, h, screwR, tabW=false) {
+module corner(panelT, plasticT, channelD, h, screwR, tabW=false, support=0) {
     translate([0,0,plasticT+panelT])difference() {
         linear_extrude(h)trimedFootprint(panelT, plasticT, channelD, screwR);
         if(tabW) {
@@ -218,11 +219,11 @@ module corner(panelT, plasticT, channelD, h, screwR, tabW=false) {
         }
     }
     translate([0,0,plasticT])
-        linear_extrude(panelT)trimedFootprint(panelT, plasticT, channelD, false, true);
+        linear_extrude(panelT)trimedFootprint(panelT, plasticT, channelD, false, true, support);
     linear_extrude(plasticT)footprint(panelT, plasticT, channelD, true);
 }
 
-module trimedFootprint(panelT, plasticT, channelD, screwR = false, base = false) {
+module trimedFootprint(panelT, plasticT, channelD, screwR = false, base = false, support=0) {
     difference() {
         footprint(panelT, plasticT, channelD);
         translate([panelT+plasticT,0])square([channelD+1,panelT]);
