@@ -21,7 +21,7 @@ hinge = false;
 longHinge = true;
 tabulate = false;
 cordInlet = [0.75*in,0.35*in];
-knockout = [0.1*in,0.05*in];// false;
+knockout = [0.1*in,0.12*in];// false;
 
 //corner(panelThickness, plasticThickness, channelDepth, h, screwRadius, tabWidth, support);
 
