@@ -11,7 +11,8 @@ support = 1;
 tabWidth = min(w, l, h)/4;
 
 
-panelThickness = 0.375*in;
+//panelThickness = (3/8)*in;
+panelThickness = (3/16)*in;
 plasticThickness = panelThickness; //0.25*in;
 screwRadius = 1.5;
 channelDepth = 0.5*in;
@@ -110,7 +111,7 @@ module top(w, l, panelT, plasticT, channelD, tabW, screwR = false, hinge = false
             translate([-(w+panelT)/2,0])rotate(90)tabs(l-2*panelT, panelT, tabW);
         }
         if(longHinge) {
-            translate([0,(l+3*panelT)/2])tabs(w-2*panelT, panelT, tabW);
+            translate([0,(l+3*panelT)/2])tabs(w-2*panelT, panelT+0.001, tabW);
         } else if(hinge) {
             translate([0,(l+3*panelT)/2])square([numTabs(w-2*panelT, tabW)*tabW*2-tabW, plasticT], true);
         }
@@ -123,8 +124,8 @@ module end(width, h, panelT, plasticT, tabW, hinge = false, lock = false, $fn=32
         square([w,h], true);
         translate([0,-(h+panelT)/2])tabs(w, panelT+0.0001, tabW);   // Adding 0.0001 creates a single piece
         translate([0, (h+panelT)/2])tabs(w, panelT+0.0001, tabW);
-        translate([-(w+panelT)/2,0])rotate(90)tabs(h, panelT, tabW);
-        translate([ (w+panelT)/2,0])rotate(90)tabs(h, panelT, tabW);
+        translate([-(w+panelT)/2,0])rotate(90)tabs(h, panelT+0.001, tabW);
+        translate([ (w+panelT)/2,0])rotate(90)tabs(h, panelT+0.001, tabW);
         if(hinge) {
             translate([0,(h+3*panelT)/2])square([numTabs(w, tabW)*tabW*2-tabW, plasticT], true);
         } else if(lock) {
