@@ -16,6 +16,8 @@ https://github.com/esprfid/esp-rfid
 |RFID-rc522 WEMOS d1 mini shield|![](https://github.com/nmorgret/BuckleBerry-Boards/raw/master/RFID-access/board-bottom.png)|https://github.com/nmorgret/BuckleBerry-Boards/tree/master/RFID-access|
 |screw terminals|![](https://m.media-amazon.com/images/I/71MwYrdtczL._AC_UY218_ML3_.jpg)|https://smile.amazon.com/Pieces-Pinch-Mount-Terminal-Connector/dp/B01MT4LC0F|
 |2.54mm jst connectors (optional)|![](https://m.media-amazon.com/images/I/71dhR-uqn6L._AC_UY218_ML3_.jpg)|https://smile.amazon.com/gp/product/B0731NHS9R|
+|5ft power cable (optional)|![](https://m.media-amazon.com/images/I/71wWBoWj1iL._AC_UL320_ML3_.jpg)|https://smile.amazon.com/Aurum-Cables-Approved-Universal-Computer/dp/B01J4M3QDW|
+|15ft power cable (optional)|![](https://m.media-amazon.com/images/I/51JsNNBojjL._AC_UY218_ML3_.jpg)|https://smile.amazon.com/C2G-09482-Universal-Power-Cord/dp/B000067RWH|
 
 ## Abstract
 
