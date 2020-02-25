@@ -19,4 +19,4 @@ https://github.com/esprfid/esp-rfid
 
 ## Abstract
 
-The goal of this project is to design a way that an unmanned makerspace can allow a particular user to access only the machines that they have been trained to use. The method of controlling access needed to have the ability to remove a user's access without having the user present. An RFID controlled outlet was the most obvious choice. After some research, the [esp-rfid](https://github.com/esprfid/esp-rfid) software was chosen for it's web interface and intuitive method of activating users.
+The goal of this project is to design a way that an unmanned makerspace can allow a particular user to access only the machines that they have been trained to use. The method of controlling access needed to have the ability to remove a user's access without requiring the user's presents. An RFID controlled outlet was the most obvious choice. After some research, the [esp-rfid](https://github.com/esprfid/esp-rfid) software was chosen for it's web interface and intuitive method of creating new users. 
