@@ -1,4 +1,4 @@
-# RFID-controlled-outlet
+# Controlled Access for Makerspace Machines
 
 ## Software
 
